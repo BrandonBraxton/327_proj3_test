@@ -31,7 +31,7 @@ const int TWO_POINTS = 2;
 const int THREE_POINTS = 3;
 const int FIVE_POINTS = 5;
 const int TEN_POINTS = 10;
-const int FIFTEEN_POINTS = 15;
+//const int FIFTEEN_POINTS = 15;
 
 
 //tracks how many points you will get out of 100

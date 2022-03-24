@@ -36,12 +36,13 @@ int typicalrun(string &inputfile,string &startTag,string &endTag,string &outputf
 int main(int argc, char *argv[]){
 
 	vector<string> myStrings;
-	int iret = SUCCESS;
+	//int iret = SUCCESS;
 
 	//TODO verify that correct number of params are entered
 	//TODO otherwise return output WRONG_NUMB_ARGS and return FAIL_WRONG_NUMBER_ARGS
 	//expect progname infile passfile failfile   //program and 3 arguments, argc=4
-	if( argc != EXPECTED_NUMBER_ARGUMENTS ) {
+
+	if (argc != EXPECTED_NUMBER_ARGUMENTS ) {
 	   cout<< WRONG_NUMB_ARGS <<endl;
 	   return FAIL_WRONG_NUMBER_ARGS;
 	}
@@ -70,12 +71,14 @@ int typicalrun(string &inputfile,string &startTag,string &endTag,string &outputf
 	//open file, if not there ask for a different file or exit
 	std::string	filecontents;
 	iret = KP_FileIO::getFileContents(inputfile.c_str(),filecontents );
-	if (iret != SUCCESS)
+	if (iret != SUCCESS){
 		return iret;
+	}
 
 	//we cant manipulate String contents easily, so make a copy in a dynamically allocated array
 	//incidently this class shows the principles of RAII, allocated memory is automatically
 	//deallocated in the destructor
+
 	String_to_pointer stp(filecontents);
 	char* pChar = stp.getPointerToStringBegginning();
 
@@ -84,20 +87,25 @@ int typicalrun(string &inputfile,string &startTag,string &endTag,string &outputf
 
 	//what tags are we searching for?
 	iret = myClass.setTags(startTag.c_str(),endTag.c_str());
-	if (iret != SUCCESS)
+	if (iret != SUCCESS){
 		return iret;
+	}
 
 	//pull out the data
 	iret = myClass.getDataBetweenTags(pChar, myStrings);
-	if (iret != SUCCESS)
+	if (iret != SUCCESS){
 		return iret;
+	}
 
 	//serialize to file
 	iret = KP_FileIO::writeVectortoFile(outputfile,myStrings);
-	if (iret != SUCCESS)
+	if (iret != SUCCESS){
 		return iret;
+	}
 
 	//dump to standard output
 	//dumpVecToStdOut(myStrings);
+	return SUCCESS;
 }
+
 
